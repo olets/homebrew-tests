@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: mislav/bump-homebrew-formula-action@v2
-        if: "contains(GITHUB_REF, 'v1')"
+        if: "contains(github.ref, 'v1')"
         with:
           formula-name: default-branch-name-change
           homebrew-tap: olets/homebrew-tap
