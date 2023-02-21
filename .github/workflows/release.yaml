@@ -4,10 +4,18 @@ on:
   release:
     types: [published]
 jobs:
-  tarball-info:
-    # h/t https://stackoverflow.com/a/74189403/1241736
+  homebrew:
+    name: Bump Homebrew formula
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     steps:
-      - name: Log URL and SHA256
-        run: curl -sL "${{ github.server_url }}/${{ github.repository }}/archive/refs/tags/${{ github.ref_name }}.tar.gz" | shasum -a 256 | cut -d " " -f 1
+      - uses: mislav/bump-homebrew-formula-action@v2
+        if: "contains(GITHUB_REF, 'v1')"
+        with:
+          formula-name: default-branch-name-change
+          homebrew-tap: olets/homebrew-tap
+          commit-message: |
+            feat({{formulaName}}): publish {{version}}
+
+            Created by https://github.com/mislav/bump-homebrew-formula-action
+        env:
+          COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
