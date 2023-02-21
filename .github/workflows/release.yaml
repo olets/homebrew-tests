@@ -12,6 +12,7 @@ jobs:
         if: "contains(github.ref, 'v1')"
         with:
           formula-name: default-branch-name-change
+          formula-path: default-branch-name-change.rb
           homebrew-tap: olets/homebrew-tap
           commit-message: |
             feat({{formulaName}}): publish {{version}}
