@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: mislav/bump-homebrew-formula-action@v3
         with:
-          formula-name: default-branch-name-change
-          formula-path: default-branch-name-change.rb
+          formula-name: homebrew-tests
+          formula-path: homebrew-tests.rb
           homebrew-tap: olets/homebrew-tap
           commit-message: |
             feat({{formulaName}}): publish {{version}}
