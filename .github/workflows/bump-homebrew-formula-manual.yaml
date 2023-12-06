@@ -9,17 +9,11 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Extract version
-        id: extract-version
-        # Strip a string prefix from the git tag name:
-        run: |
-          echo "tag-name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v4
       - name: Get latest version
-        id: Extract-latest-version
-        # Strip a string prefix from the git tag name:
+        id: extract-latest-version
         run: |
           git fetch --tags
-          git fetch --prune --unshallow || true
           echo "latest-tag-name=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
 
       - uses: mislav/bump-homebrew-formula-action@v3
