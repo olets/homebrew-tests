@@ -8,7 +8,23 @@ jobs:
     name: Bump Homebrew formula
     runs-on: ubuntu-latest
     steps:
-      - uses: mislav/bump-homebrew-formula-action@v3
+      - name: Get latest release's version
+        uses: pozetroninc/github-action-get-latest-release@master
+        id: latest_release
+        with:
+          excludes: prerelease, draft
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get action-triggering release's version
+        id: trigger_release
+        # Strip a string prefix from the git tag name:
+        run: |
+          echo "release=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Bump formula
+        if: ${{ steps.latest_release.outputs.release == steps.trigger_release.outputs.release }}
+        uses: mislav/bump-homebrew-formula-action@v3
         with:
           formula-name: homebrew-tests
           formula-path: homebrew-tests.rb
