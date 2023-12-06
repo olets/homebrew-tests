@@ -5,17 +5,11 @@ jobs:
   get:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Get latest version
-        id: extract-latest-version
-        run: |
-          git fetch --tags
-          git fetch --prune --unshallow || true
-          echo "latest-tag-name=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
-
-      # - name: Fetch latest release version
-      #   id: fetch-latest-release
-      #   uses: reloc8/action-latest-release-version@1.0.0
+      - name: Latest release
+        uses: rez0n/actions-github-release@main
+        id: latest_release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test
-        run: echo ${{ steps.extract-latest-version.outputs.latest-tag-name }}
+        run: echo ${{ steps.latest_release.outputs.release }}
