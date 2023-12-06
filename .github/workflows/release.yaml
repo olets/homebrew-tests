@@ -8,8 +8,7 @@ jobs:
     name: Bump Homebrew formula
     runs-on: ubuntu-latest
     steps:
-      - uses: mislav/bump-homebrew-formula-action@v2
-        if: "contains(github.ref, 'v1')"
+      - uses: mislav/bump-homebrew-formula-action@v3
         with:
           formula-name: default-branch-name-change
           formula-path: default-branch-name-change.rb
