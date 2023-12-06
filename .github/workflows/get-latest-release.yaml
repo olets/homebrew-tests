@@ -6,10 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Latest release
-        uses: thebritican/fetch-latest-release@v1
+        uses: pozetroninc/github-action-get-latest-release@master
         id: latest_release
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
+          excludes: prerelease, draft
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Test
-        run: echo ${{ steps.latest_release.outputs.tag_name }}
+        run: echo ${{ steps.latest_release.outputs.release }}
