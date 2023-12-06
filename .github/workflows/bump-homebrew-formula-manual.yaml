@@ -6,13 +6,15 @@ jobs:
   homebrew:
     name: Bump Homebrew formula
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Extract version
         id: extract-version
         # Strip a string prefix from the git tag name:
         run: |
           echo "tag-name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-          
+
       - uses: mislav/bump-homebrew-formula-action@v3
         with:
           formula-name: homebrew-tests
