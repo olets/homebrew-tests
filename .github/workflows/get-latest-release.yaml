@@ -5,8 +5,8 @@ jobs:
   get:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Get latest version
-        uses: actions/checkout@v4
         id: extract-latest-version
         run: |
           git fetch --tags
