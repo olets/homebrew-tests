@@ -1,0 +1,22 @@
+name: Bump Homebrew Formula (automatic)
+
+on:
+  release:
+    types: [published]
+jobs:
+  homebrew:
+    name: Bump Homebrew formula
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mislav/bump-homebrew-formula-action@v3
+        with:
+          formula-name: homebrew-tests
+          formula-path: homebrew-tests.rb
+          homebrew-tap: olets/homebrew-tap
+          download-url: https://github.com/olets/homebrew-tests.git
+          commit-message: |
+            feat({{formulaName}}): publish {{version}}
+
+            Created by https://github.com/mislav/bump-homebrew-formula-action
+        env:
+          COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}

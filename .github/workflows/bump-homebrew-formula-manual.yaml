@@ -1,20 +1,25 @@
-name: Release
+name: Bump Homebrew Formula (manual)
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
 jobs:
   homebrew:
     name: Bump Homebrew formula
     runs-on: ubuntu-latest
     steps:
+      - name: Extract version
+        id: extract-version
+        # Strip a string prefix from the git tag name:
+        run: |
+          echo "tag-name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          
       - uses: mislav/bump-homebrew-formula-action@v3
         with:
           formula-name: homebrew-tests
           formula-path: homebrew-tests.rb
           homebrew-tap: olets/homebrew-tap
           download-url: https://github.com/olets/homebrew-tests.git
+          tag-name: ${{ steps.extract-version.outputs.tag-name }}
           commit-message: |
             feat({{formulaName}}): publish {{version}}
 
