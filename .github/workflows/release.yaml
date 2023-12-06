@@ -13,6 +13,7 @@ jobs:
           formula-name: homebrew-tests
           formula-path: homebrew-tests.rb
           homebrew-tap: olets/homebrew-tap
+          download-url: https://github.com/olets/homebrew-tests.git
           commit-message: |
             feat({{formulaName}}): publish {{version}}
 
